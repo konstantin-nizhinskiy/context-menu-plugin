@@ -25,6 +25,7 @@ export default class ConnectionMenu extends Menu {
             let changColor = (color) => {
                 con.connection.data.color = color
                 con.el.querySelector('.connection path').style.setProperty("stroke", color)
+                con.el.classList.remove("select-connection")
             }
             if (connectionItems["colors"] && "function" != typeof connectionItems["colors"]) {
                 if (connectionItems["colors"].title && connectionItems["colors"].colors && connectionItems["colors"].callback) {
