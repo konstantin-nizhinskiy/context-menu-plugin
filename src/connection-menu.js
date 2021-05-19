@@ -39,7 +39,7 @@ export default class ConnectionMenu extends Menu {
                 }
             } else {
                 let colors = {
-                    "RED": "red",
+                    "red": "red",
                     "black": "black",
                     "blue": "blue",
                     "yellow": "yellow",

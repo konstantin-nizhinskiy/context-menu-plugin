@@ -1,4 +1,6 @@
-import { debounce } from 'lodash-es';
+//import { debounce } from 'lodash-es';
+
+import debounce from "../debounce";
 
 export default (hideMethod) => ({
     props: { delay: { type: Number, required: true } },
