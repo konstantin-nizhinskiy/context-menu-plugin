@@ -3,7 +3,8 @@ import NodeMenu from './node-menu';
 import VueItem from './menu/Item.vue';
 import VueMenu from './menu/Menu.vue';
 import VueSearch from './menu/Search.vue';
-import { isFunction } from 'lodash-es';
+import { isFunction } from './utils';
+import ConnectionMenu from "./connection-menu";
 
 function install(editor, {
     searchBar = true,
@@ -11,6 +12,7 @@ function install(editor, {
     delay = 1000,
     items = {},
     nodeItems = {},
+    connectionItems = {},
     allocate = () => [],
     rename = component => component.name,
     vueComponent = null
@@ -28,7 +30,7 @@ function install(editor, {
         editor.trigger('hidecontextmenu');
     });
 
-    editor.on('contextmenu', ({ e, node }) => {
+    editor.on('contextmenu', ({ e, node,connection }) => {
         e.preventDefault();
         e.stopPropagation();
 
@@ -36,7 +38,10 @@ function install(editor, {
 
         const [x, y] = [e.clientX, e.clientY];
 
-        if(node) {
+        if(connection) {
+            menu = new ConnectionMenu(editor, { searchBar: false, delay }, vueComponent,  isFunction(connectionItems) ? connectionItems(node) : connectionItems,connection);
+            menu.show(x, y);
+        } else if(node) {
             menu = new NodeMenu(editor, { searchBar: false, delay }, vueComponent,  isFunction(nodeItems) ? nodeItems(node) : nodeItems);
             menu.show(x, y, { node });
         } else {

@@ -29,3 +29,7 @@ export function fitViewport([x, y], element) {
         Math.min(y, window.innerHeight - element.clientHeight)
     ]
 }
+export function isFunction(param){
+    return "function"===typeof param
+}
+
