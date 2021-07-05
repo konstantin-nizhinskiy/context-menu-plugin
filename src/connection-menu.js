@@ -2,7 +2,7 @@ import Menu from './menu/index';
 import {traverse} from './utils';
 
 export default class ConnectionMenu extends Menu {
-    constructor(editor, props, vueComponent, connectionItems, con) {
+    constructor(editor, props, vueComponent, connectionItems, con,e) {
         super(editor, props, vueComponent);
         if (connectionItems["add_pink"] !== false) {
             if (connectionItems["add_pink"] && "function" != typeof connectionItems["add_pink"]) {
@@ -20,6 +20,16 @@ export default class ConnectionMenu extends Menu {
                     this.addItem('Add pink', () => con.connection.addPink())
                 }
             }
+        }
+        if(e.target&& e.target.__vue__ && "function"===typeof e.target.__vue__.pinup){
+            if (connectionItems["remove_pink"] !== false) {
+                if (connectionItems["remove_pink"] && connectionItems["remove_pink"].title) {
+                        this.addItem(connectionItems["remove_pink"].title, () => e.target.__vue__.pinup())
+                }else{
+                    this.addItem('Remove pink', () => e.target.__vue__.pinup())
+                }
+            }
+
         }
         if (connectionItems["colors"] !== false) {
             let changColor = (color) => {

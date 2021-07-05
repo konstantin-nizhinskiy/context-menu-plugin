@@ -1478,7 +1478,7 @@ var ConnectionMenu =
 function (_Menu) {
   _inherits(ConnectionMenu, _Menu);
 
-  function ConnectionMenu(editor, props, vueComponent, connectionItems, con) {
+  function ConnectionMenu(editor, props, vueComponent, connectionItems, con, e) {
     var _this;
 
     _classCallCheck(this, ConnectionMenu);
@@ -1502,6 +1502,20 @@ function (_Menu) {
         if ("function" === typeof con.connection.addPink) {
           _this.addItem('Add pink', function () {
             return con.connection.addPink();
+          });
+        }
+      }
+    }
+
+    if (e.target && e.target.__vue__ && "function" === typeof e.target.__vue__.pinup) {
+      if (connectionItems["remove_pink"] !== false) {
+        if (connectionItems["remove_pink"] && connectionItems["remove_pink"].title) {
+          _this.addItem(connectionItems["remove_pink"].title, function () {
+            return e.target.__vue__.pinup();
+          });
+        } else {
+          _this.addItem('Remove pink', function () {
+            return e.target.__vue__.pinup();
           });
         }
       }
@@ -1639,7 +1653,7 @@ function install(editor, _ref) {
       menu = new ConnectionMenu(editor, {
         searchBar: false,
         delay: delay
-      }, vueComponent, isFunction(connectionItems) ? connectionItems(node) : connectionItems, connection);
+      }, vueComponent, isFunction(connectionItems) ? connectionItems(node) : connectionItems, connection, e);
       menu.show(x, y);
     } else if (node) {
       menu = new NodeMenu(editor, {

@@ -39,7 +39,8 @@ function install(editor, {
         const [x, y] = [e.clientX, e.clientY];
 
         if(connection) {
-            menu = new ConnectionMenu(editor, { searchBar: false, delay }, vueComponent,  isFunction(connectionItems) ? connectionItems(node) : connectionItems,connection);
+
+            menu = new ConnectionMenu(editor, { searchBar: false, delay }, vueComponent,  isFunction(connectionItems) ? connectionItems(node) : connectionItems,connection,e);
             menu.show(x, y);
         } else if(node) {
             menu = new NodeMenu(editor, { searchBar: false, delay }, vueComponent,  isFunction(nodeItems) ? nodeItems(node) : nodeItems);
